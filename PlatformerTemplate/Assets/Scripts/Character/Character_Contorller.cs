@@ -11,7 +11,6 @@ namespace Character_Controller
         public Rigidbody _myRigidbody;
 
         [Header("Boolens")]
-        public bool _CanMove;
         public bool _IsReadyToStop; // To avoid chracter dragging on surface
         public bool _IsFaceRight;
         public bool _IsJumpButtonDown; // Full jump
@@ -47,7 +46,6 @@ namespace Character_Controller
             DOTween.Init();
             _myRigidbody = GetComponent<Rigidbody>();
 
-            _CanMove = true;
             _IsFaceRight = true;
 
             _runSpeed = 4;
@@ -61,25 +59,16 @@ namespace Character_Controller
 
         private void Update() //All inputs in Update function
         {
-            if(_CanMove)
-            {
-                _moveHorizontal = Input.GetAxis("Horizontal");
-            }
-            else if(!_CanMove)
-            {
-                _moveHorizontal = 0;
-            }
-
+            _moveHorizontal = Input.GetAxis("Horizontal");
+            
             if(Input.GetButtonDown("Jump"))
             {
                 _IsJumpButtonDown = true;
             }
-
             if(Input.GetButtonUp("Jump"))
             {
                 _IsJumpButtonUp = true;
             }
-
 
             if (_moveHorizontal == 0)
             {
@@ -102,12 +91,21 @@ namespace Character_Controller
         private void FixedUpdate() // All physics in Fixed Update function
         {
             HorizontalMovementFunction();
+            StopInXAxisFunction();
             IsGroundedFunction();
             JumpFunction();
             SmallJumpFunction();
             CharacterFallFasterFunction();
         }
 
+        private void StopInXAxisFunction()
+        {
+            if (_IsReadyToStop == true)
+            {
+                _myRigidbody.velocity = new Vector3(0, _myRigidbody.velocity.y, _myRigidbody.velocity.z);
+                _IsReadyToStop = false;
+            }
+        }
         private void CharacterFallFasterFunction()
         {
             if(!_IsGrounded)
