@@ -31,32 +31,7 @@ public class Enemy : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        else if(collision.gameObject.layer != LayerMask.NameToLayer("GroundLayer") && collision.gameObject.layer != LayerMask.NameToLayer("HoleLayer"))
-        {
-            if(this.gameObject.GetComponent<Corona>() != null)
-            {
-                if(this.gameObject.GetComponent<Corona>().IsFaceRight)
-                {
-                    this.gameObject.GetComponent<Corona>().IsFaceRight = false;
-                }
-                else if(!this.gameObject.GetComponent<Corona>().IsFaceRight)
-                {
-                    this.gameObject.GetComponent<Corona>().IsFaceRight = true;
-                }
-            }
-
-            else if (this.gameObject.GetComponent<Bacteria>() != null)
-            {
-                if (this.gameObject.GetComponent<Bacteria>().IsFaceRight)
-                {
-                    this.gameObject.GetComponent<Bacteria>().IsFaceRight = false;
-                }
-                else if (!this.gameObject.GetComponent<Bacteria>().IsFaceRight)
-                {
-                    this.gameObject.GetComponent<Bacteria>().IsFaceRight = true;
-                }
-            }
-        }
+ 
     }
 
     public IEnumerator DeathSequence()

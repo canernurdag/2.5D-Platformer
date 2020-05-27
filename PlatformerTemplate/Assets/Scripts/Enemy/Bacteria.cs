@@ -2,63 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bacteria : Enemy
+public class Bacteria : Enemy, IEnemy
 {
-
-    private float _enemySpeed;
-    public float EnemySpeed
-    {
-        get
-        {
-            return _enemySpeed;
-        }
-        set
-        {
-            _enemySpeed = value;
-        }
-    }
-
-    private bool _canDie;
-    public bool CanDie
-    {
-        get
-        {
-            return _canDie;
-        }
-        set
-        {
-            _canDie = value;
-        }
-    }
-
-    private bool _isFaceRight;
-    public bool IsFaceRight
-    {
-        get
-        {
-            return _isFaceRight;
-        }
-        set
-        {
-            _isFaceRight = value;
-        }
-    }
-
-
-
-    private float _enemyJumpSpeed;
-    public float EnemyJumpSpeed
-    {
-        get
-        {
-            return _enemyJumpSpeed;
-        }
-        set
-        {
-            _enemyJumpSpeed = value;
-        }
-    }
-
+    public float _EnemySpeed { get; set; }
+    public bool _IsFaceRight { get; set; }
+    public bool _CanJump { get; set; }
+    public float _EnemyJumpSpeed { get; set; }
+    public bool _CanDie { get; set; }
 
     public Rigidbody _myRigidbody;
     public Character_Manager _myCharacterManager;
@@ -69,25 +19,53 @@ public class Bacteria : Enemy
         _myRigidbody = GetComponent<Rigidbody>();
         _myCharacterManager = GameObject.FindObjectOfType<Character_Manager>();
 
-        IsFaceRight = false;
+        _IsFaceRight = false;
 
-        EnemySpeed = 5;
+        _EnemySpeed = 5;
+        _EnemyJumpSpeed = 0; //No jump
 
+        InvokeRepeating("JumpMovement", 1f, 3f);
     }
 
 
+    private void JumpMovement()
+    {
+        _CanJump = false; //No jump
+    }
 
     private void FixedUpdate()
     {
         EnemyMove();
+        EnemyJump();
     }
 
     public void EnemyMove()
     {
-        base.EnemyMove(_isFaceRight, _myRigidbody, EnemySpeed);
+        base.EnemyMove(_IsFaceRight, _myRigidbody, _EnemySpeed);
     }
 
+    public void EnemyJump()
+    {
+        base.EnemyJump(_CanJump, _myRigidbody, _EnemyJumpSpeed);
+        _CanJump = false;
+    }
 
+    public override void OnCollisionEnter(Collision collision)
+    {
+        base.OnCollisionEnter(collision);
+
+        if (collision.gameObject.layer != LayerMask.NameToLayer("GroundLayer") && collision.gameObject.layer != LayerMask.NameToLayer("HoleLayer"))
+        {
+            if (_IsFaceRight)
+            {
+                _IsFaceRight = false;
+            }
+            else if (!_IsFaceRight)
+            {
+                _IsFaceRight = true;
+            }
+        }
+    }
 
 
 }

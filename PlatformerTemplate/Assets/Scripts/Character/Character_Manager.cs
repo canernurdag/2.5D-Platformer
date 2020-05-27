@@ -5,18 +5,10 @@ using UnityEngine;
 public class Character_Manager : MonoBehaviour
 {
 
-
-    private void Start()
+    public void CharacterDie()
     {
-
-
+        Destroy(this.gameObject);
     }
-
-    public IEnumerator CharacterDeathSequence()
-    {
-        yield return null;
-    }
-
- 
+     
 
 }

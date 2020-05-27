@@ -4,14 +4,29 @@ using UnityEngine;
 
 public class Character_Collision : MonoBehaviour
 {
-    public delegate IEnumerator EnemyDeathSequence();
-    public event EnemyDeathSequence OnHitToEnemy;
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("EnemyLayer"))
+        ContactPoint _tempContactPoint = collision.GetContact(0);
+
+        if(collision.gameObject.layer == LayerMask.NameToLayer("EnemyLayer") && _tempContactPoint.normal.y > 0.5f) 
         {
-            
+            StartCoroutine(Game_Events._Instance.EnemyDieSequence(collision.gameObject));
+        }
+
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("EnemyLayer") && _tempContactPoint.normal.y <= 0.5f)
+        {
+            StartCoroutine(Game_Events._Instance.CharacterDieSequence(this.gameObject));
+        }
+
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("HoleLayer"))
+        {
+            StartCoroutine(Game_Events._Instance.CharacterDieSequence(this.gameObject));
+        }
+
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("PillLayer"))
+        {
+            StartCoroutine(Game_Events._Instance.CharacterGetPillSequence(this.gameObject));
         }
     }
 }
