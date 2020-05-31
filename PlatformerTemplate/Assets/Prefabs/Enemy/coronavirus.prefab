@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 6186682243538043138}
   - component: {fileID: 8296172669007041838}
   - component: {fileID: 8296172669007041839}
-  - component: {fileID: 5638061175599148785}
   m_Layer: 13
   m_Name: coronavirus
   m_TagString: Untagged
@@ -126,15 +125,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.7777786, y: 3.3257966, z: 3.1743665}
   m_Center: {x: -0.028892113, y: 0.0058252555, z: 1.4779686}
---- !u!114 &5638061175599148785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7884865950938845539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad72ea4b07648b240ad7d2ff053469e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -17,6 +17,7 @@ public class Character_Collision : MonoBehaviour
         else if (collision.gameObject.layer == LayerMask.NameToLayer("EnemyLayer") && _tempContactPoint.normal.y <= 0.5f)
         {
             StartCoroutine(Game_Events._Instance.CharacterDieSequence(this.gameObject));
+            GetComponent<Character_Movement>()._IsDead = true;
         }
 
         else if (collision.gameObject.layer == LayerMask.NameToLayer("HoleLayer"))
@@ -27,6 +28,12 @@ public class Character_Collision : MonoBehaviour
         else if (collision.gameObject.layer == LayerMask.NameToLayer("PillLayer"))
         {
             StartCoroutine(Game_Events._Instance.CharacterGetPillSequence(this.gameObject));
+        }
+
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("FinalLayer"))
+        {
+            StartCoroutine(Game_Events._Instance.LevelCompletedSequence(this.gameObject));
+            GetComponent<Character_Movement>()._IsLevelFinished = true;
         }
     }
 }

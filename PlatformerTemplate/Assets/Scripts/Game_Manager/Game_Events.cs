@@ -1,20 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 
 public class Game_Events : MonoBehaviour
 {
+    //Static Instance (Data Structures)
     public static Game_Events _Instance;
+    
+    //All Events For Functions To Subscribe
+    public event Action<GameObject> _onCharacterDieFirst;
+    public event Action<GameObject> _onCharacterDieSecond;
+    public event Action<GameObject> _onCharacterGetPill;
+    public event Action<GameObject> _onEnemyDie;
+    public event Action<GameObject> _onLevelCompletedFirst;
+    public event Action<GameObject> _onLevelCompletedSecond;
 
-    public delegate void CharacterActions(GameObject _char);
-    public event CharacterActions _onCharacterDie;
-    public event CharacterActions _onCharacterGetPill;
-
-    public delegate void EnemyDie(GameObject _enemy);
-    public event EnemyDie _onEnemyDie;
-
-    #region SINGLETON
+    #region SINGLETON Pattern
     private void Awake()
     {
         if (_Instance == null)
@@ -29,14 +31,18 @@ public class Game_Events : MonoBehaviour
     }
     #endregion
 
+
     public IEnumerator CharacterDieSequence(GameObject _char)
     {
-        if(_onCharacterDie != null)
+        if(_onCharacterDieFirst != null)
         {
-            _onCharacterDie(_char);
+            _onCharacterDieFirst(_char);
         }
-        yield return new WaitForSeconds(1f);
-        Destroy(_char);
+        yield return new WaitForSeconds(0.3f);
+        if(_onCharacterDieSecond != null)
+        {
+            _onCharacterDieSecond(_char);
+        }
  
     }
 
@@ -46,8 +52,11 @@ public class Game_Events : MonoBehaviour
         {
             _onEnemyDie(_enemy);
         }
-        yield return new WaitForSeconds(1f);
-        Destroy(_enemy);
+        yield return new WaitForSeconds(0.1f);
+        if(_enemy != null) // To avoid call a function of the destroyed GameObject
+        { 
+            _enemy.GetComponent<Enemy>().EnemyDeath(_enemy);
+        }
     }
 
     public IEnumerator CharacterGetPillSequence(GameObject _char)
@@ -59,6 +68,21 @@ public class Game_Events : MonoBehaviour
         
         yield return new WaitForSeconds(1f);
         //FUNCTION
+    }
+
+    public IEnumerator LevelCompletedSequence(GameObject _char)
+    {
+        if(_onLevelCompletedFirst != null)
+        {
+            _onLevelCompletedFirst(_char);
+        }
+        yield return new WaitForSeconds(4);
+        
+        if(_onLevelCompletedSecond != null)
+        {
+            _onLevelCompletedSecond(_char);
+        }
+
     }
 
 }

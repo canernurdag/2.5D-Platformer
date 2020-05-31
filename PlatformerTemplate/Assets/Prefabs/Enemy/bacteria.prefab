@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 8792890042837273912}
   - component: {fileID: 8296172668993092894}
   - component: {fileID: 8296172668993092895}
-  - component: {fileID: 8187700965595024766}
   m_Layer: 13
   m_Name: bacteria
   m_TagString: Untagged
@@ -96,6 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _myRigidbody: {fileID: 0}
+  _myCharacterManager: {fileID: 0}
 --- !u!54 &8296172668993092894
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -125,15 +125,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.448707, y: 2.915588, z: 3.6569207}
   m_Center: {x: -0.00000011920935, y: -0.002519875, z: 1.8284603}
---- !u!114 &8187700965595024766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3944587460704285005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad72ea4b07648b240ad7d2ff053469e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
