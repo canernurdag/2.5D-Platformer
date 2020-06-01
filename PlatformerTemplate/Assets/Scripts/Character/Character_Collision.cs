@@ -35,5 +35,15 @@ public class Character_Collision : MonoBehaviour
             StartCoroutine(Game_Events._Instance.LevelCompletedSequence(this.gameObject));
             GetComponent<Character_Movement>()._IsLevelFinished = true;
         }
+
+       
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("CoinLayer"))
+        {
+            Game_Events._Instance.CoinCollectSequnce(other.gameObject);
+        }
     }
 }

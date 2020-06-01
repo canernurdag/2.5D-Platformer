@@ -15,6 +15,7 @@ public class Game_Events : MonoBehaviour
     public event Action<GameObject> _onEnemyDie;
     public event Action<GameObject> _onLevelCompletedFirst;
     public event Action<GameObject> _onLevelCompletedSecond;
+    public event Action<GameObject> _onCoinCollected;
 
     #region SINGLETON Pattern
     private void Awake()
@@ -38,7 +39,7 @@ public class Game_Events : MonoBehaviour
         {
             _onCharacterDieFirst(_char);
         }
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(2f);
         if(_onCharacterDieSecond != null)
         {
             _onCharacterDieSecond(_char);
@@ -53,9 +54,9 @@ public class Game_Events : MonoBehaviour
             _onEnemyDie(_enemy);
         }
         yield return new WaitForSeconds(0.1f);
-        if(_enemy != null) // To avoid call a function of the destroyed GameObject
+        if(_enemy != null) // To avoid to call a function of the destroyed GameObject
         { 
-            _enemy.GetComponent<Enemy>().EnemyDeath(_enemy);
+            _enemy.GetComponent<Enemy>().EnemyDeath(_enemy); //To be able to select all inherited classes
         }
     }
 
@@ -82,7 +83,16 @@ public class Game_Events : MonoBehaviour
         {
             _onLevelCompletedSecond(_char);
         }
-
     }
+
+    public void CoinCollectSequnce(GameObject _gameObject)
+    {
+        if(_onCoinCollected != null)
+        {
+            _onCoinCollected(_gameObject);
+        }
+    }
+
+
 
 }

@@ -85,16 +85,17 @@ public class Character_Movement : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             _IsJumpButtonDown = true;
+            Invoke("IsJumpButtonDownButtonClearFunction", 0.1f);
         }
         if (Input.GetButtonUp("Jump"))
         {
             _IsJumpButtonUp = true;
+            Invoke("IsJumpButtonUpButtonClearFunction", 0.1f);
         }
 
         CharacterMoveAdjustFunctions();
 
         //Character Animation Changes
-           
         if(!_IsLevelFinished && !_IsDead)
         { 
             CallAnimationIdle();
@@ -105,6 +106,14 @@ public class Character_Movement : MonoBehaviour
         }
     }
 
+    private void IsJumpButtonDownButtonClearFunction()
+    {
+        _IsJumpButtonDown = false;
+    }
+    private void IsJumpButtonUpButtonClearFunction()
+    {
+        _IsJumpButtonUp = false;
+    }
     private void CallAnimationClimb()
     {
         if(_IsWallSliding)

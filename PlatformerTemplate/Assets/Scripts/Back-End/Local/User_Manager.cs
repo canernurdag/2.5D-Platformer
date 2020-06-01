@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
 public class User_Manager : MonoBehaviour
 {
     //Static Instance
     public static User_Manager _Instance;
 
     #region VARIABLES
-    public int _userHighScoreLocal;
 
     public List<bool> _userLevelsList;
     public List<bool> _tempLevelList; //For internal calculate
@@ -18,7 +18,7 @@ public class User_Manager : MonoBehaviour
     GameObject _null;
     #endregion
 
-    #region FUNCTIONS
+
     private void Awake()
     {
         SinglePatern();
@@ -60,8 +60,9 @@ public class User_Manager : MonoBehaviour
 
     public void Start()
     {
-        _userLevelsList = LoadUserLevelLocal();
+        _userLevelsList = LoadUserLevelListLocal();
         _tempLevelList = _userLevelsList;
+      
 
         //Due to script execution order, below functions are in Start Method instead of OnEnable
         Game_Events._Instance._onLevelCompletedFirst += RefreshLevelArrayWithSucceedCurrentLevel;
@@ -81,19 +82,21 @@ public class User_Manager : MonoBehaviour
         {
             _userLevelsList.Add(_tempLevelList[i]);
         }
-        _userLevelsList[_currentLevel] = true;
+        if(_currentLevel < _tempLevelList.Count-1) // Check the level is not the last level.
+        { 
+            _userLevelsList[_currentLevel] = true;
+        }
+        else if(_currentLevel == _tempLevelList.Count -1) // If last level
+        {
+            // Game Finished Actions are here.
+            Debug.Log("Game Completed Successfully");
+        }
         _tempLevelList = _userLevelsList;
     }
 
-    public int LoadUserHighScoreLocal()
-    {
-        UserData _myUserData = UserSave.LoadUser();
-        _Instance._userHighScoreLocal = _myUserData._userHighScoreLocalData;
 
-        return _Instance._userHighScoreLocal;
-    }
 
-    public List<bool> LoadUserLevelLocal()
+    public List<bool> LoadUserLevelListLocal()
     {
         UserData _myUserData = UserSave.LoadUser();
         _Instance._userLevelsList = _myUserData._userLevelsListData;
@@ -101,5 +104,10 @@ public class User_Manager : MonoBehaviour
         return _Instance._userLevelsList;
     }
 
-    #endregion
+    private void OnDisable()
+    {
+        Game_Events._Instance._onLevelCompletedFirst -= RefreshLevelArrayWithSucceedCurrentLevel;
+        Game_Events._Instance._onLevelCompletedFirst -= SaveUserLocal;
+    }
+
 }

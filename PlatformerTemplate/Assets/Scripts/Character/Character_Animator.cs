@@ -12,7 +12,7 @@ public class Character_Animator : MonoBehaviour
         _myAnimator = GetComponent<Animator>();
         Game_Events._Instance._onCharacterDieFirst += AnimationDie;
         Game_Events._Instance._onLevelCompletedFirst += AnimationVictory;
-        Game_Events._Instance._onCharacterDieFirst += AnimationDie;
+
 
 
     }

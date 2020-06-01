@@ -9,7 +9,20 @@ public class SFX_Manager : MonoBehaviour
     public AudioClip[] _sfxArray;
     public AudioSource _myAudioSource;
 
-    //SINGLETON PATERIN IS IN SOUND_MANAGER SCRIPT
+    #region SINGLETON
+    private void Awake()
+    {
+        if (_Instance == null)
+        {
+            _Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    #endregion
 
     private void Start()
     {

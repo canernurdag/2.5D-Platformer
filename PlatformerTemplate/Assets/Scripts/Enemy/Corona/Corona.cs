@@ -60,10 +60,12 @@ public class Corona : Enemy, IEnemy
             if (_IsFaceRight)
             {
                 _IsFaceRight = false;
+                transform.localScale = new Vector3(1, 1, 1);
             }
             else if (!_IsFaceRight)
             {
-               _IsFaceRight = true;
+                _IsFaceRight = true;
+                transform.localScale = new Vector3(-1, 1, 1);
             }
         }
 

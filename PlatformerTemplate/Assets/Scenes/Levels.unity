@@ -971,7 +971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ac3913689d68d8458fcc983de256d55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvas1: {fileID: 0}
+  _canvas1: {fileID: 1958517285}
 --- !u!1 &1473294917
 GameObject:
   m_ObjectHideFlags: 0
@@ -1158,7 +1158,7 @@ GameObject:
   - component: {fileID: 1778548900}
   - component: {fileID: 1778548901}
   m_Layer: 0
-  m_Name: Level_Manager
+  m_Name: LevelScene_Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1194,7 +1194,7 @@ MonoBehaviour:
   - {fileID: 3444738529676038062}
   - {fileID: 222672794}
   - {fileID: 398024367}
-  _tempLevelArray: 
+  _tempLevelList: 
 --- !u!1 &1958517284
 GameObject:
   m_ObjectHideFlags: 0
