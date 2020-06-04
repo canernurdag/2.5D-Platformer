@@ -13,13 +13,12 @@ public class Character_Particles : MonoBehaviour
 
     private void Start()
     {
- 
         _myParticleSystem = GetComponent<ParticleSystem>();
     }
 
     public void LevelCompleteCharacterParticles(GameObject _null)
     {
-        //Play Particles Here
+        _myParticleSystem.Play();
     }
 
   

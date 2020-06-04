@@ -30,6 +30,9 @@ public class Score_Manager : MonoBehaviour
     private void Start()
     {
         Game_Events._Instance._onCoinCollected += AddScore;
+        Game_Events._Instance._onCharacterDieFirst += UpdateHighScoreIfNecessery;
+        Game_Events._Instance._onLevelCompletedFirst += UpdateHighScoreIfNecessery;
+        Game_Events._Instance._onCharacterDieFirst += ResetUserScoreAfterGameFinish;
     }
 
     public void AddScore(GameObject _gameObject)
@@ -37,9 +40,27 @@ public class Score_Manager : MonoBehaviour
         _userScore += _coinScore;
     }
 
+    public void UpdateHighScoreIfNecessery(GameObject _gameObject)
+    {
+        if(User_Manager._Instance.LoadUserHighScore() < _userScore)
+        {
+            User_Manager._Instance._userHighScore = _userScore;
+            User_Manager._Instance.SaveUserLocal(_gameObject);
+        }
+
+    }
+
+    public void ResetUserScoreAfterGameFinish(GameObject _gameObject)
+    {
+        _Instance._userScore = 0;
+    }
+
     private void OnDisable()
     {
         Game_Events._Instance._onCoinCollected -= AddScore;
+        Game_Events._Instance._onCharacterDieFirst -= UpdateHighScoreIfNecessery;
+        Game_Events._Instance._onLevelCompletedFirst -= UpdateHighScoreIfNecessery;
+        Game_Events._Instance._onCharacterDieFirst -= ResetUserScoreAfterGameFinish;
     }
 
 }

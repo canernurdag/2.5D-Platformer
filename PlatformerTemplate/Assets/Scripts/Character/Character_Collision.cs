@@ -9,15 +9,22 @@ public class Character_Collision : MonoBehaviour
     {
         ContactPoint _tempContactPoint = collision.GetContact(0);
 
-        if(collision.gameObject.layer == LayerMask.NameToLayer("EnemyLayer") && _tempContactPoint.normal.y > 0.5f) 
+        if (collision.gameObject.layer == LayerMask.NameToLayer("EnemyLayer") && _tempContactPoint.normal.y > 0.5f)
         {
             StartCoroutine(Game_Events._Instance.EnemyDieSequence(collision.gameObject));
         }
 
         else if (collision.gameObject.layer == LayerMask.NameToLayer("EnemyLayer") && _tempContactPoint.normal.y <= 0.5f)
         {
-            StartCoroutine(Game_Events._Instance.CharacterDieSequence(this.gameObject));
-            GetComponent<Character_Movement>()._IsDead = true;
+            if (Character_Manager._Instance._currentCharacterState == Character_State.normal)
+            {
+                StartCoroutine(Game_Events._Instance.CharacterDieSequence(this.gameObject));
+                GetComponent<Character_Movement>()._IsDead = true;
+            }
+            else if (Character_Manager._Instance._currentCharacterState == Character_State.pilled)
+            {
+                Game_Events._Instance.EnemyHitToPilledCharacter(this.gameObject);
+            }
         }
 
         else if (collision.gameObject.layer == LayerMask.NameToLayer("HoleLayer"))
@@ -28,6 +35,7 @@ public class Character_Collision : MonoBehaviour
         else if (collision.gameObject.layer == LayerMask.NameToLayer("PillLayer"))
         {
             StartCoroutine(Game_Events._Instance.CharacterGetPillSequence(this.gameObject));
+            Destroy(collision.gameObject); // Destroy the pill
         }
 
         else if (collision.gameObject.layer == LayerMask.NameToLayer("FinalLayer"))
@@ -36,7 +44,11 @@ public class Character_Collision : MonoBehaviour
             GetComponent<Character_Movement>()._IsLevelFinished = true;
         }
 
-       
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("GameFinish"))
+        {
+            StartCoroutine(Game_Events._Instance.GameFinished(collision.gameObject));
+
+        }
     }
 
     private void OnTriggerEnter(Collider other)

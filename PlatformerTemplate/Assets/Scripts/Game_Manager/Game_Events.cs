@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
 public class Game_Events : MonoBehaviour
 {
     //Static Instance (Data Structures)
@@ -16,6 +17,10 @@ public class Game_Events : MonoBehaviour
     public event Action<GameObject> _onLevelCompletedFirst;
     public event Action<GameObject> _onLevelCompletedSecond;
     public event Action<GameObject> _onCoinCollected;
+    public event Action<GameObject> _onCharacterHitRewardObject;
+    public event Action<GameObject> _onEnemyHitToPilledCharacter;
+    public event Action<GameObject> _onObjectBreak;
+    public event Action<GameObject> _onGameFinished;
 
     #region SINGLETON Pattern
     private void Awake()
@@ -66,9 +71,9 @@ public class Game_Events : MonoBehaviour
         {
             _onCharacterGetPill(_char);
         }
-        
-        yield return new WaitForSeconds(1f);
-        //FUNCTION
+
+        yield return null;
+      
     }
 
     public IEnumerator LevelCompletedSequence(GameObject _char)
@@ -83,6 +88,8 @@ public class Game_Events : MonoBehaviour
         {
             _onLevelCompletedSecond(_char);
         }
+
+        
     }
 
     public void CoinCollectSequnce(GameObject _gameObject)
@@ -93,6 +100,37 @@ public class Game_Events : MonoBehaviour
         }
     }
 
+    public void CharacterHitRewardObjectSequence(GameObject _gameObject)
+    {
+        if(_onCharacterHitRewardObject != null)
+        {
+            _onCharacterHitRewardObject(_gameObject);
+        }
+    }
 
+    public void EnemyHitToPilledCharacter(GameObject _gameObject)
+    {
+        if(_onEnemyHitToPilledCharacter != null)
+        {
+            _onEnemyHitToPilledCharacter(_gameObject);
+        }
+    }
 
+    public void ObjectBreak(GameObject _gameObject)
+    {
+        if(_onObjectBreak != null)
+        {
+            _onObjectBreak(_gameObject);
+        }
+    }
+
+    public IEnumerator GameFinished(GameObject _gameObject)
+    {
+        if(_onGameFinished != null)
+        {
+            _onGameFinished(_gameObject);
+        }
+        yield return new WaitForSeconds(3);
+
+    }
 }

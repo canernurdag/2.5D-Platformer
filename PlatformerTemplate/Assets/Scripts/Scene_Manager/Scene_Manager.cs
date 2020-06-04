@@ -30,6 +30,8 @@ public class Scene_Manager : MonoBehaviour
         SceneManager.activeSceneChanged += GetCurrentSceneIndex;
         SceneManager.activeSceneChanged += Sound_Manager._Instance.SelectMusicAndPlay;
         Game_Events._Instance._onCharacterDieSecond += GetGameMainScene;
+        Game_Events._Instance._onLevelCompletedSecond += GetGameMainScene;
+        Game_Events._Instance._onGameFinished += GetGameMainScene;
 
     }
 
@@ -40,7 +42,7 @@ public class Scene_Manager : MonoBehaviour
 
     public void GetGameMainScene(GameObject _null)
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     private void OnDisable()
@@ -48,6 +50,8 @@ public class Scene_Manager : MonoBehaviour
         SceneManager.activeSceneChanged -= GetCurrentSceneIndex;
         SceneManager.activeSceneChanged -= Sound_Manager._Instance.SelectMusicAndPlay;
         Game_Events._Instance._onCharacterDieSecond -= GetGameMainScene;
+        Game_Events._Instance._onLevelCompletedSecond -= GetGameMainScene;
+        Game_Events._Instance._onGameFinished -= GetGameMainScene;
     }
     
   

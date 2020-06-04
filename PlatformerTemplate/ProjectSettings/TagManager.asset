@@ -23,8 +23,8 @@ TagManager:
   - FinalLayer
   - ObjectsLayer
   - CoinLayer
-  - 
-  - 
+  - PillLayer
+  - GameFinish
   - 
   - 
   - 

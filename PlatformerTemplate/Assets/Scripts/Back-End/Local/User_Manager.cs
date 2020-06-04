@@ -14,6 +14,8 @@ public class User_Manager : MonoBehaviour
     public List<bool> _userLevelsList;
     public List<bool> _tempLevelList; //For internal calculate
     public int _currentLevel;
+    public int _userHighScore;
+
 
     GameObject _null;
     #endregion
@@ -26,6 +28,7 @@ public class User_Manager : MonoBehaviour
         UserData _myUserData = UserSave.LoadUser();
         CreateANewUserIfNecessary(_myUserData);
     }
+    
     private void SinglePatern()
     {
         if (_Instance == null)
@@ -56,13 +59,12 @@ public class User_Manager : MonoBehaviour
         }
     }
 
-   
-
     public void Start()
     {
         _userLevelsList = LoadUserLevelListLocal();
         _tempLevelList = _userLevelsList;
-      
+
+        _userHighScore = LoadUserHighScore();
 
         //Due to script execution order, below functions are in Start Method instead of OnEnable
         Game_Events._Instance._onLevelCompletedFirst += RefreshLevelArrayWithSucceedCurrentLevel;
@@ -84,7 +86,7 @@ public class User_Manager : MonoBehaviour
         }
         if(_currentLevel < _tempLevelList.Count-1) // Check the level is not the last level.
         { 
-            _userLevelsList[_currentLevel] = true;
+            _userLevelsList[_currentLevel+1] = true;
         }
         else if(_currentLevel == _tempLevelList.Count -1) // If last level
         {
@@ -102,6 +104,14 @@ public class User_Manager : MonoBehaviour
         _Instance._userLevelsList = _myUserData._userLevelsListData;
 
         return _Instance._userLevelsList;
+    }
+
+    public int LoadUserHighScore()
+    {
+        UserData _myUserData = UserSave.LoadUser();
+        _Instance._userHighScore = _myUserData._userHighScoreData;
+
+        return _Instance._userHighScore;
     }
 
     private void OnDisable()

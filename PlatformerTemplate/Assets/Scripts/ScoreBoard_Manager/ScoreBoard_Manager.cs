@@ -11,7 +11,7 @@ public class ScoreBoard_Manager : MonoBehaviour
     {
         Game_Events._Instance._onCoinCollected += UpdateScoreBoardText;
 
-        _scoreText.text = "0";
+        _scoreText.text = Score_Manager._Instance._userScore.ToString();
         
     }
 

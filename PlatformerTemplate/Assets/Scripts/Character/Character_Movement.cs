@@ -66,13 +66,13 @@ public class Character_Movement : MonoBehaviour
         _IsLevelFinished = false;
 
         _runSpeed = 4;
-        _jumpSpeed = 20;
+        _jumpSpeed = 25;
         _wallSlideSpeed = 1f;
         _wallJumpForceX = 2000;
-        _wallJumpForceY = 1000;
+        _wallJumpForceY = 1300;
         _groundCheckRadius = 0.2f;
         _wallCheckRadius = 0.5f;
-        _fallFasterFactor = 15;
+        _fallFasterFactor = 10;
         _characterSlowFactor = 0.9f;
 
 
@@ -80,7 +80,7 @@ public class Character_Movement : MonoBehaviour
 
     private void Update() //All inputs in Update function
     {
-        _moveHorizontal = Input.GetAxis("Horizontal");
+        _moveHorizontal = Input.GetAxisRaw("Horizontal");
 
         if (Input.GetButtonDown("Jump"))
         {
