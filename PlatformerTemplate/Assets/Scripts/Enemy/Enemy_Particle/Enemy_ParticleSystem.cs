@@ -16,9 +16,7 @@ public class Enemy_ParticleSystem : MonoBehaviour
 
     public void PlayDieParticleEffect(GameObject _enemy)
     {
-        // if(_enemy.GetInstanceID() == this.gameObject.GetInstanceID()) => Algorithm to choose one instance;
-
-        this.gameObject.transform.position = _enemy.transform.position; //Particle System TO Enemy's location.
+       this.gameObject.transform.position = _enemy.transform.position; //Particle System TO Enemy's location.
        _myParticleSystem.Play();
         
     }

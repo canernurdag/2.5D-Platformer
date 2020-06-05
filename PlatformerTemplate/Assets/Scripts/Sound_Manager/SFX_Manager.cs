@@ -32,6 +32,7 @@ public class SFX_Manager : MonoBehaviour
         Game_Events._Instance._onEnemyDie += ExplodeSFX;
         Game_Events._Instance._onLevelCompletedFirst += VictorySFX;
         Game_Events._Instance._onObjectBreak += BreakSFX;
+        Game_Events._Instance._onCharacterGetPill += PowerUpSFX;
     }
 
     public void CoinSFX(GameObject _gameObject)
@@ -75,5 +76,6 @@ public class SFX_Manager : MonoBehaviour
         Game_Events._Instance._onEnemyDie -= ExplodeSFX;
         Game_Events._Instance._onLevelCompletedFirst -= VictorySFX;
         Game_Events._Instance._onObjectBreak -= BreakSFX;
+        Game_Events._Instance._onCharacterGetPill -= PowerUpSFX;
     }
 }

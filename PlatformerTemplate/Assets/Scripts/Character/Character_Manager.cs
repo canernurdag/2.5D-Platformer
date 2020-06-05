@@ -46,6 +46,9 @@ public class Character_Manager : MonoBehaviour
         Game_Events._Instance._onLevelCompletedFirst += CharacterTurn90Degrees;
         Game_Events._Instance._onCharacterGetPill += CharacterGetPilled;
         Game_Events._Instance._onEnemyHitToPilledCharacter += CharacterGetUnpilled;
+        Game_Events._Instance._onCharacterDieFirst += MakeCharacterNotMove;
+        Game_Events._Instance._onLevelCompletedFirst += MakeCharacterNotMove;
+        Game_Events._Instance._onGameFinishedFirst += MakeCharacterNotMove;
     }
 
     public void CharacterTurn90Degrees(GameObject _this)
@@ -71,6 +74,10 @@ public class Character_Manager : MonoBehaviour
         FindObjectOfType<Character_Movement>().transform.localScale = _normalCharacterSize;
     }
    
+    public void MakeCharacterNotMove(GameObject _this)
+    {
+        FindObjectOfType<Character_Movement>()._CanMove = false;
+    }
 
     public void OnDisable()
     {
@@ -78,6 +85,10 @@ public class Character_Manager : MonoBehaviour
         Game_Events._Instance._onLevelCompletedFirst -= CharacterTurn90Degrees;
         Game_Events._Instance._onCharacterGetPill -= CharacterGetPilled;
         Game_Events._Instance._onEnemyHitToPilledCharacter -= CharacterGetUnpilled;
+        Game_Events._Instance._onCharacterDieFirst -= MakeCharacterNotMove;
+        Game_Events._Instance._onLevelCompletedFirst -= MakeCharacterNotMove;
+        Game_Events._Instance._onGameFinishedFirst -= MakeCharacterNotMove;
     }
+
 
 }

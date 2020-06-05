@@ -7,7 +7,7 @@ public class Scene_Manager : MonoBehaviour
 {
     public static Scene_Manager _Instance;
 
-    public int _currentSceneIndex;
+    public int _currentSceneIndex { get; set; }
 
 
     #region SINGLETON Pattern
@@ -31,7 +31,7 @@ public class Scene_Manager : MonoBehaviour
         SceneManager.activeSceneChanged += Sound_Manager._Instance.SelectMusicAndPlay;
         Game_Events._Instance._onCharacterDieSecond += GetGameMainScene;
         Game_Events._Instance._onLevelCompletedSecond += GetGameMainScene;
-        Game_Events._Instance._onGameFinished += GetGameMainScene;
+        Game_Events._Instance._onGameFinishedSecond += GetGameMainScene;
 
     }
 
@@ -51,7 +51,7 @@ public class Scene_Manager : MonoBehaviour
         SceneManager.activeSceneChanged -= Sound_Manager._Instance.SelectMusicAndPlay;
         Game_Events._Instance._onCharacterDieSecond -= GetGameMainScene;
         Game_Events._Instance._onLevelCompletedSecond -= GetGameMainScene;
-        Game_Events._Instance._onGameFinished -= GetGameMainScene;
+        Game_Events._Instance._onGameFinishedSecond -= GetGameMainScene;
     }
     
   

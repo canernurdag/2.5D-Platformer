@@ -11,6 +11,7 @@ public class Character_Movement : MonoBehaviour
     public Character_Animator _myCharacterAnimator;
 
     [Header("Boolens")]
+    public bool _CanMove;
     public bool _IsReadyToStop; // To avoid chracter dragging on surface
     public bool _IsFaceRight;
     public bool _IsJumpButtonDown; // Full jump
@@ -61,6 +62,7 @@ public class Character_Movement : MonoBehaviour
         _myRigidbody = GetComponent<Rigidbody>();
         _myCharacterAnimator = GetComponent<Character_Animator>();
 
+        _CanMove = true;
         _IsFaceRight = true;
         _IsDead = false;
         _IsLevelFinished = false;
@@ -80,29 +82,33 @@ public class Character_Movement : MonoBehaviour
 
     private void Update() //All inputs in Update function
     {
-        _moveHorizontal = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetButtonDown("Jump"))
-        {
-            _IsJumpButtonDown = true;
-            Invoke("IsJumpButtonDownButtonClearFunction", 0.1f);
-        }
-        if (Input.GetButtonUp("Jump"))
-        {
-            _IsJumpButtonUp = true;
-            Invoke("IsJumpButtonUpButtonClearFunction", 0.1f);
-        }
-
-        CharacterMoveAdjustFunctions();
-
-        //Character Animation Changes
-        if(!_IsLevelFinished && !_IsDead)
+        if(_CanMove)
         { 
-            CallAnimationIdle();
-            CallAnimationRun();
-            CallAnimationJumpPhase1();
-            CallAnimationJumpPhase2();
-            CallAnimationClimb();
+            _moveHorizontal = Input.GetAxisRaw("Horizontal");
+
+            if (Input.GetButtonDown("Jump"))
+            {
+                _IsJumpButtonDown = true;
+                Invoke("IsJumpButtonDownButtonClearFunction", 0.1f);
+            }
+            if (Input.GetButtonUp("Jump"))
+            {
+                _IsJumpButtonUp = true;
+                Invoke("IsJumpButtonUpButtonClearFunction", 0.1f);
+            }
+
+            CharacterMoveAdjustFunctions();
+
+            //Character Animation Changes
+            if(!_IsLevelFinished && !_IsDead)
+            { 
+                CallAnimationIdle();
+                CallAnimationRun();
+                CallAnimationJumpPhase1();
+                CallAnimationJumpPhase2();
+                CallAnimationClimb();
+            }
         }
     }
 
@@ -172,15 +178,18 @@ public class Character_Movement : MonoBehaviour
 
     private void FixedUpdate() // All physics in Fixed Update function
     {
-        HorizontalMovementFunction();
-        StopInXAxisFunction();
-        IsGroundedFunction();
-        JumpFunction();
-        SmallJumpFunction();
-        CharacterFallFasterFunction();
-        IsWallTouchedFunction();
-        WallSlidingFunction();
-        WallJumpFunction();
+        if(_CanMove)
+        { 
+            HorizontalMovementFunction();
+            StopInXAxisFunction();
+            IsGroundedFunction();
+            JumpFunction();
+            SmallJumpFunction();
+            CharacterFallFasterFunction();
+            IsWallTouchedFunction();
+            WallSlidingFunction();
+            WallJumpFunction();
+        }
     }
 
     private void WallSlidingFunction()

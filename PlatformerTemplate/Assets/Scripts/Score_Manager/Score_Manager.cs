@@ -6,10 +6,10 @@ public class Score_Manager : MonoBehaviour
 {
     public static Score_Manager _Instance;
 
-    public int _userHighScore;
-    public int _userScore;
+    public int _userHighScore { get; set; }
+    public int _userScore { get; set; }
 
-    public int _coinScore;
+    public int _coinScore { get; set; }
 
 
     #region SINGLETON Pattern
@@ -29,6 +29,7 @@ public class Score_Manager : MonoBehaviour
 
     private void Start()
     {
+        _coinScore = 10;
         Game_Events._Instance._onCoinCollected += AddScore;
         Game_Events._Instance._onCharacterDieFirst += UpdateHighScoreIfNecessery;
         Game_Events._Instance._onLevelCompletedFirst += UpdateHighScoreIfNecessery;

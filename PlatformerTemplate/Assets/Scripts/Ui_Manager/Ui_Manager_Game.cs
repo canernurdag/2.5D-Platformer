@@ -7,16 +7,19 @@ using UnityEngine.UI;
 public class Ui_Manager_Game : MonoBehaviour
 {
     public RectTransform _gameOverPanel;
-    public Text _gameOverText;
+    public RectTransform _gameFinishedPanel;
+
 
     public Text _highScoreText;
+    public Text _highScoreText2;
 
     private void Start()
     {
         DOTween.Init();
         Game_Events._Instance._onCharacterDieFirst += GameOverUiAnimation;
         Game_Events._Instance._onCharacterDieFirst += GameOverUiHighScoreShow;
-        Game_Events._Instance._onGameFinished += GameFinishUiSequence;
+        Game_Events._Instance._onGameFinishedFirst += GameFinishUiSequence;
+        Game_Events._Instance._onGameFinishedFirst += GameOverUiHighScoreShow2;
 
     }
     public void GameOverUiAnimation(GameObject _null)
@@ -29,16 +32,21 @@ public class Ui_Manager_Game : MonoBehaviour
         _highScoreText.text = User_Manager._Instance.LoadUserHighScore().ToString();
     }
 
-    public void GameFinishUiSequence(GameObject _gameObject)
+    public void GameOverUiHighScoreShow2(GameObject _gameObject)
     {
-        _gameOverText.text = "Game Finished";
-        _gameOverPanel.DOAnchorPos(Vector2.zero, 2);
+        _highScoreText2.text = User_Manager._Instance.LoadUserHighScore().ToString();
+    }
+
+    public void GameFinishUiSequence(GameObject _null)
+    {
+        _gameFinishedPanel.DOAnchorPos(Vector2.zero, 2);
     }
 
     private void OnDisable()
     {
         Game_Events._Instance._onCharacterDieFirst -= GameOverUiAnimation;
         Game_Events._Instance._onCharacterDieFirst -= GameOverUiHighScoreShow;
-        Game_Events._Instance._onGameFinished -= GameFinishUiSequence;
+        Game_Events._Instance._onGameFinishedFirst -= GameFinishUiSequence;
+        Game_Events._Instance._onGameFinishedFirst -= GameOverUiHighScoreShow2;
     }
 }

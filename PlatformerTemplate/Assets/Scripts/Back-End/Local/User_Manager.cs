@@ -11,10 +11,10 @@ public class User_Manager : MonoBehaviour
 
     #region VARIABLES
 
-    public List<bool> _userLevelsList;
-    public List<bool> _tempLevelList; //For internal calculate
-    public int _currentLevel;
-    public int _userHighScore;
+    public List<bool> _userLevelsList { get; set; }
+    public List<bool> _tempLevelList { get; set; } //For internal calculate
+    public int _currentLevel { get; set; }
+    public int _userHighScore { get; set; }
 
 
     GameObject _null;

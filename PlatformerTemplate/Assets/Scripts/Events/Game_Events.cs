@@ -20,7 +20,8 @@ public class Game_Events : MonoBehaviour
     public event Action<GameObject> _onCharacterHitRewardObject;
     public event Action<GameObject> _onEnemyHitToPilledCharacter;
     public event Action<GameObject> _onObjectBreak;
-    public event Action<GameObject> _onGameFinished;
+    public event Action<GameObject> _onGameFinishedFirst;
+    public event Action<GameObject> _onGameFinishedSecond;
 
     #region SINGLETON Pattern
     private void Awake()
@@ -126,11 +127,15 @@ public class Game_Events : MonoBehaviour
 
     public IEnumerator GameFinished(GameObject _gameObject)
     {
-        if(_onGameFinished != null)
+        if(_onGameFinishedFirst != null)
         {
-            _onGameFinished(_gameObject);
+            _onGameFinishedFirst(_gameObject);
         }
         yield return new WaitForSeconds(3);
+        if (_onGameFinishedSecond != null)
+        {
+            _onGameFinishedSecond(_gameObject);
+        }
 
     }
 }

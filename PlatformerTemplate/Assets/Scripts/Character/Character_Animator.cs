@@ -12,9 +12,6 @@ public class Character_Animator : MonoBehaviour
         _myAnimator = GetComponent<Animator>();
         Game_Events._Instance._onCharacterDieFirst += AnimationDie;
         Game_Events._Instance._onLevelCompletedFirst += AnimationVictory;
-
-
-
     }
     public void AnimationIdle() 
     {
@@ -23,8 +20,6 @@ public class Character_Animator : MonoBehaviour
         _myAnimator.SetBool("Climb", false);
         _myAnimator.SetBool("Jump1", false);
         _myAnimator.SetBool("Jump2", false);
-
-
     }
 
     public void AnimationRun()
@@ -34,8 +29,6 @@ public class Character_Animator : MonoBehaviour
         _myAnimator.SetBool("Climb", false);
         _myAnimator.SetBool("Jump1", false);
         _myAnimator.SetBool("Jump2", false);
-
-
     }
 
     public void AnimationJumpPhase1()
@@ -45,7 +38,6 @@ public class Character_Animator : MonoBehaviour
         _myAnimator.SetBool("Climb", false);
         _myAnimator.SetBool("Jump1", true);
         _myAnimator.SetBool("Jump2", false);
-
     }
 
     public void AnimationJumpPhase2()
@@ -55,7 +47,6 @@ public class Character_Animator : MonoBehaviour
         _myAnimator.SetBool("Climb", false);
         _myAnimator.SetBool("Jump1", false);
         _myAnimator.SetBool("Jump2", true);
-
     }
 
     public void AnimatorClimb()
@@ -65,7 +56,6 @@ public class Character_Animator : MonoBehaviour
         _myAnimator.SetBool("Climb", true);
         _myAnimator.SetBool("Jump1", false);
         _myAnimator.SetBool("Jump2", false);
-
     }
 
 
